@@ -1,0 +1,8 @@
+ersion: "3"
+services:
+  web:
+    image: rakhaeg/hello-react:latest
+    container_name: web
+    restart: unless-stopped
+    ports:
+      - 80:80
