@@ -46,7 +46,8 @@ jobs:
           echo "key_file=~/.oci/oci_api_key.pem" >> ~/.oci/config
           echo "${{secrets.OCI_KEY_FILE}}" >> ~/.oci/oci_api_key.pem
           echo "${{secrets.OCI_KEY_PUBLIC}}" >> ~/.oci/oci_api_key_public.pem
-
+          echo "${{secrets.VM_SSH_PUB_KEY}}" >> /home/runner/.oci/id_vm.pub
+          
       - name: 'Install OCI CLI'
         run: |
           curl -L -O https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh
@@ -83,7 +84,7 @@ jobs:
             --assign-public-ip true \
             --display-name cicd-demo \
             --image-id ${{secrets.VM_CUSTOM_IMAGE_OCID}} \
-            --ssh-authorized-keys-file /home/runner/.oci/oci_api_key_public.pem \
+            --ssh-authorized-keys-file /home/runner/.oci/id_vm.pub \
             --subnet-id ${{secrets.VM_SUBNET_OCID}} \
             --wait-for-state RUNNING \
             --query "data.id" \
